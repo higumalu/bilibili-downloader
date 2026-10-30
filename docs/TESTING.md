@@ -15,6 +15,9 @@ Preparation checks on 2026-10-31: Python and Node suites passed locally, includi
 - [ ] Close/reopen the popup while downloading; transfer continues.
 - [ ] Cancel; retry with fresh URLs; confirm compatible chunks are reused.
 - [ ] Close/reopen Chrome; show interruption and require explicit retry.
+- [ ] Add three videos with concurrency set to 2: two run, one waits, and completion starts the third.
+- [ ] Cancel one active video without interrupting another; cancel a waiting video without launching it.
+- [ ] Reject duplicate video parts; retry joins the waiting queue. Resume interrupted queue explicitly after restart.
 - [ ] Fail one node; a supplied backup node succeeds.
 - [ ] Read-only destination and disk-full cases show appropriate localized guidance.
 - [ ] Reveal a completed file, change destination, reveal the earlier file from history.

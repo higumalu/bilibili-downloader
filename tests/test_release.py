@@ -21,6 +21,7 @@ class ReleaseTests(unittest.TestCase):
             names = archive.namelist()
             self.assertTrue(any(n.endswith('/LICENSE') for n in names))
             self.assertTrue(any(n.endswith('/native/pick_folder.py') for n in names))
+            self.assertTrue(any(n.endswith('/extension/queue.js') for n in names))
             self.assertTrue(any(n.endswith('/_locales/en/messages.json') for n in names))
             self.assertTrue(any(n.endswith('/_locales/zh_TW/messages.json') for n in names))
             for name in names:

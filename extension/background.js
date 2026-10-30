@@ -1,55 +1,39 @@
+import { DownloadQueue } from './queue.js';
 const HOST = 'com.local.bilibili_downloader';
-let port, messageQueue = Promise.resolve();
-let busy = false, choosingDirectory = false, cancelRequested = false;
-const save = state => chrome.storage.local.set({ state });
-const fail = key => Object.assign(new Error(key), { errorKey: key });
-
-async function record(message) {
-  await save(message);
-  if (['done', 'cancelled', 'error', 'interrupted'].includes(message.type)) {
-    const { history = [], lastDownload } = await chrome.storage.local.get(['history', 'lastDownload']);
-    if (lastDownload) await chrome.storage.local.set({ history: [{
-      type: message.type, title: message.title || lastDownload.title,
-      path: message.path, timestamp: Date.now()
-    }, ...history].slice(0, 20) });
+let controlPort;
+const queue = new DownloadQueue({ storage: chrome.storage.local, launch });
+const initialized = queue.init().then(async () => {
+  for (const job of queue.jobs) {
+    try { job.url = validUrl(job.url); }
+    catch { Object.assign(job, { type: 'error', messageKey: 'errorUrl' }); }
   }
-}
-function connect() {
-  if (port) return port;
-  port = chrome.runtime.connectNative(HOST);
-  port.onMessage.addListener(message => {
-    messageQueue = messageQueue.then(async () => {
-      if (message.type === 'pong') {
-        await chrome.storage.local.set({ hostReady: true }); return;
-      }
-      if (message.type === 'revealed') return;
-      if (message.type === 'action_error') {
-        await chrome.storage.local.set({ settings: { ...(await chrome.storage.local.get('settings')).settings, errorKey: message.messageKey } });
-        return;
-      }
-      if (message.type === 'settings') {
-        choosingDirectory = Boolean(message.choosing);
-        await chrome.storage.local.set({ settings: message, hostReady: true });
-        if (!busy && !message.busy) {
-          const { state } = await chrome.storage.local.get('state');
-          if (state?.type === 'progress') await record({ ...state, type: 'interrupted', messageKey: 'interrupted' });
-        }
-        return;
-      }
-      if (['done', 'error', 'cancelled'].includes(message.type)) busy = false;
-      await record(message);
-    }).catch(() => {});
-  });
+  await queue.persist();
+});
+const fail = key => queue.error(key);
+function connectControl() {
+  if (controlPort) return controlPort;
+  const port = chrome.runtime.connectNative(HOST);
+  controlPort = port;
+  port.onMessage.addListener(message => queue.transaction(async () => {
+    if (message.type === 'pong') await chrome.storage.local.set({ hostReady: true });
+    if (message.type === 'settings') {
+      queue.choosing = Boolean(message.choosing);
+      await chrome.storage.local.set({ settings: message, hostReady: true });
+      if (!queue.choosing) await queue.pump();
+    }
+    if (message.type === 'action_error') {
+      const { settings } = await chrome.storage.local.get('settings');
+      await chrome.storage.local.set({ settings: { ...settings, errorKey: message.messageKey } });
+    }
+  }));
   port.onDisconnect.addListener(() => {
-    // Read lastError to avoid an unchecked Chrome error; do not persist native diagnostics.
     void chrome.runtime.lastError;
-    port = null; choosingDirectory = false;
-    const wasBusy = busy; busy = false;
-    messageQueue = messageQueue.then(async () => {
-      await chrome.storage.local.set({ hostReady: false });
-      const { state, settings } = await chrome.storage.local.get(['state', 'settings']);
-      await chrome.storage.local.set({ settings: { ...settings, choosing: false, errorKey: 'errorHelper' } });
-      if (wasBusy || !state) await record({ type: 'error', messageKey: 'errorHelper' });
+    if (controlPort === port) controlPort = null;
+    queue.transaction(async () => {
+      queue.choosing = false;
+      const { settings } = await chrome.storage.local.get('settings');
+      await chrome.storage.local.set({ hostReady: false, settings: { ...settings, choosing: false, errorKey: 'errorHelper' } });
+      await queue.pump();
     });
   });
   return port;
@@ -58,41 +42,33 @@ function validUrl(value) {
   const url = new URL(value || 'about:blank');
   if (!['https:', 'http:'].includes(url.protocol) || !['www.bilibili.com', 'bilibili.com'].includes(url.hostname)
       || !/^\/video\/BV[a-zA-Z0-9]+\/?$/.test(url.pathname)) throw fail('errorUrl');
-  return url;
+  const page = Number(url.searchParams.get('p') || 1);
+  if (!Number.isSafeInteger(page) || page < 1) throw fail('errorPage');
+  return `https://www.bilibili.com${url.pathname.replace(/\/$/, '')}/?p=${page}`;
 }
-async function startDownload(request, retry = false) {
-  if (choosingDirectory) throw fail('errorChoosing');
-  if (busy) throw fail('errorBusy');
-  busy = true; cancelRequested = false;
+async function launch(job, entry) {
+  let info = { title: job.title };
   try {
-    let url, info = {}, height = request.height;
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (retry) {
-      const { lastDownload } = await chrome.storage.local.get('lastDownload');
-      if (!lastDownload) throw fail('errorNoRetry');
-      url = validUrl(lastDownload.url); height = lastDownload.height;
-      info.title = lastDownload.title;
-    } else { url = validUrl(tab?.url); }
-    await save({ type: 'progress', stage: 'extracting', percent: 0, title: info.title, messageKey: 'extracting' });
-    // Only reuse browser login context when the active tab is the requested video part.
-    if (tab?.url) {
-      const active = new URL(tab.url);
-      if (active.hostname === url.hostname && active.pathname.replace(/\/$/, '') === url.pathname.replace(/\/$/, '')
-          && (active.searchParams.get('p') || '1') === (url.searchParams.get('p') || '1')) {
-        try { info = await pageInfo(tab.id); } catch { /* Native extraction remains available. */ }
-      }
-    }
-    const cleanUrl = `https://www.bilibili.com${url.pathname}?p=${encodeURIComponent(url.searchParams.get('p') || '1')}`;
-    await chrome.storage.local.set({ lastDownload: { url: cleanUrl, height, title: info.title || '' } });
-    if (cancelRequested) {
-      busy = false; await record({ type: 'cancelled', messageKey: 'cancelled' }); return;
-    }
-    connect().postMessage({ command: 'download', url: cleanUrl, info, height, language: request.language });
-  } catch (error) {
-    busy = false;
-    await save({ type: 'error', messageKey: error.errorKey || 'errorUnknown' });
-    throw error;
+    const tab = await chrome.tabs.get(job.tabId);
+    if (validUrl(tab.url) === job.url) info = await pageInfo(tab.id);
+  } catch { /* Closed/navigated tab: fetch fresh metadata through the local extractor. */ }
+  if (entry.cancelled || entry.finished) {
+    await queue.transaction(() => queue.update(job.id, { type: 'cancelled', messageKey: 'cancelled' }));
+    return;
   }
+  const port = chrome.runtime.connectNative(HOST);
+  entry.port = port;
+  port.onMessage.addListener(message => queue.transaction(async () => {
+    if (queue.active.get(job.id) !== entry || entry.finished) return;
+    if (['progress', 'done', 'error', 'cancelled'].includes(message.type)) await queue.update(job.id, message);
+  }));
+  port.onDisconnect.addListener(() => {
+    void chrome.runtime.lastError;
+    if (!entry.finished) queue.transaction(async () => {
+      if (queue.active.get(job.id) === entry) await queue.update(job.id, { type: 'error', messageKey: 'errorHelper' });
+    });
+  });
+  port.postMessage({ command: 'download', url: job.url, info, height: job.height, language: job.language });
 }
 async function pageInfo(tabId) {
   const [{ result }] = await chrome.scripting.executeScript({
@@ -126,23 +102,33 @@ async function pageInfo(tabId) {
 }
 
 chrome.runtime.onMessage.addListener((request, sender, reply) => {
-  (async () => {
-    const native = command => connect().postMessage({ command, language: request.language });
+  queue.transaction(async () => {
+    await initialized;
+    const native = command => connectControl().postMessage({ command, language: request.language });
     if (['ping', 'get_settings'].includes(request.command)) native(request.command);
     else if (request.command === 'choose_directory') {
-      if (busy) throw fail('errorBusyFolder');
-      native('choose_directory');
-    } else if (request.command === 'download') await startDownload(request);
-    else if (request.command === 'retry') await startDownload(request, true);
-    else if (request.command === 'cancel') {
-      cancelRequested = true;
-      port?.postMessage({ command: 'cancel' });
-    } else if (request.command === 'reveal') {
-      const { state } = await chrome.storage.local.get('state');
-      connect().postMessage({ command: 'reveal', path: request.path || state?.path });
+      if (queue.pending()) throw fail('errorBusyFolder');
+      queue.choosing = true;
+      try { native('choose_directory'); } catch (error) { queue.choosing = false; throw error; }
+    } else if (request.command === 'download') {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      const url = validUrl(tab?.url);
+      const height = Number(request.height || 0);
+      if (![0, 480, 720, 1080].includes(height)) throw fail('errorQuality');
+      await queue.add({ url, tabId: tab.id, title: tab.title || url, height, language: request.language });
+    } else if (request.command === 'set_concurrency') {
+      if (![1, 2, 3].includes(request.value)) throw fail('errorCommand');
+      queue.concurrency = request.value; await queue.pump();
+    } else if (request.command === 'cancel') await queue.cancel(request.id);
+    else if (request.command === 'retry') await queue.retry(request.id, request.language);
+    else if (request.command === 'resume_queue') await queue.resume(request.language);
+    else if (request.command === 'clear_finished') await queue.clearFinished();
+    else if (request.command === 'reveal') {
+      const job = queue.jobs.find(item => item.id === request.id);
+      connectControl().postMessage({ command: 'reveal', path: request.path || job?.path });
     } else if (request.command === 'clear_history') await chrome.storage.local.set({ history: [] });
     else throw fail('errorCommand');
     return { ok: true };
-  })().then(reply, error => reply({ ok: false, errorKey: error.errorKey || 'errorUnknown' }));
+  }).then(reply, error => reply({ ok: false, errorKey: error.errorKey || 'errorUnknown' }));
   return true;
 });

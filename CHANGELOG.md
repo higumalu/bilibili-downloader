@@ -1,8 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 — Download queue
 
 - Remove GitHub CI; use local tests and the existing release script.
+- Add persistent video queue with 1–3 concurrent native workers (default: 2).
+- Add per-video progress, cancellation, retry, and reveal; refill available slots automatically.
+- Prevent duplicate pending videos and require explicit resume after Chrome restarts.
+- Refresh playback metadata at task start without persisting signed stream URLs.
 
 ## 0.3.0 — Windows preview
 

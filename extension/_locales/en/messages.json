@@ -39,7 +39,7 @@
     "message": "Choose a folder in the dialog…"
   },
   "download": {
-    "message": "Download this video"
+    "message": "Add this video to queue"
   },
   "idleTitle": {
     "message": "Open a Bilibili video to get started."
@@ -69,7 +69,7 @@
     "message": "Run install.cmd once before use. Python and FFmpeg are required."
   },
   "helpStorage": {
-    "message": "Your folder choice is remembered. Keep Chrome open while downloading. Retry cancelled or interrupted downloads to reuse finished chunks."
+    "message": "Add videos one by one; two run at a time by default. Keep Chrome open. After restarting, select Resume interrupted."
   },
   "helpPrivacy": {
     "message": "No analytics, relay servers, or exported cookies."
@@ -135,7 +135,7 @@
     "message": "A download is already running."
   },
   "errorBusyFolder": {
-    "message": "Wait for the current download before changing folders."
+    "message": "Finish or cancel pending tasks before changing folders."
   },
   "errorChoosing": {
     "message": "Finish selecting the folder first."
@@ -190,5 +190,32 @@
   },
   "folderPickerTitle": {
     "message": "Choose a video download folder"
+  },
+  "concurrencyLabel": {
+    "message": "Concurrent videos"
+  },
+  "queueTitle": {
+    "message": "Download queue"
+  },
+  "queueSummary": {
+    "message": "{running} downloading · {waiting} queued"
+  },
+  "queued": {
+    "message": "Waiting in queue…"
+  },
+  "queueEmpty": {
+    "message": "Open a video page and add your first video."
+  },
+  "resumeQueue": {
+    "message": "Resume interrupted"
+  },
+  "clearFinished": {
+    "message": "Clear finished"
+  },
+  "errorDuplicate": {
+    "message": "This video is already downloading or queued."
+  },
+  "errorQueueFull": {
+    "message": "The queue is full. Clear finished tasks first."
   }
 }

@@ -12,7 +12,9 @@ Download the current Bilibili BV video and merge its video/audio locally into MP
 2. Install **FFmpeg** and add its `bin` folder to PATH: [FFmpeg downloads](https://ffmpeg.org/download.html). Reopen your terminal after changing PATH.
 3. Extract the project into a permanent folder and run **install.cmd**. It checks prerequisites, creates an isolated Python environment, installs pinned dependencies, and registers the native helper for your Windows account. Administrator privileges are not required.
 4. Open `chrome://extensions`, enable **Developer mode**, select **Load unpacked**, and choose this project's **extension** folder.
-5. Open a regular BV video page, click the extension, choose a folder and quality, then select **Download this video**.
+5. Open a regular BV video page, click the extension, choose a folder and quality, then select **Add this video to queue**.
+
+In v0.4.0, the button is **Add this video to queue**. Open other video pages and add them one by one. Two videos run concurrently by default; choose 1–3 using Concurrent videos. Lowering the limit leaves existing transfers running. Each task has independent progress, cancellation, retry, and file reveal. Duplicate pending video parts are rejected; retries join the end of the waiting queue.
 
 Check prerequisites without installing or changing the registry:
 
@@ -27,6 +29,10 @@ The installer follows Windows language; override with `install.cmd -Language en`
 The default destination is `%USERPROFILE%\Downloads\Bilibili`. **Choose folder** opens the system dialog and remembers your selection. Cancelling the dialog keeps your setting. Folder changes are disabled during downloads. Existing videos are preserved by adding a filename suffix.
 
 Keep Chrome open. Closing only the popup does not stop the download. Closing Chrome, reloading the extension, or losing the native helper interrupts it. Reopen the extension and select **Retry download** to fetch fresh stream URLs and reuse finished chunks. Downloads never restart automatically. Chunk reuse requires the same video part, stream, and destination. Failed/cancelled chunks remain under the destination's `.parts` folder; a successful merge removes that task's temporary files.
+
+The queue survives Chrome restarts. Both running and waiting tasks become interrupted; select **Resume interrupted** to continue. A failed task does not stop other videos. Playback URLs are refreshed when each task starts; if its original tab was closed or navigated, unauthenticated native extraction is used and login-only qualities may be unavailable. Folder changes are blocked while any task is queued or downloading.
+
+The queue retains up to 100 tasks. **Clear finished** removes completed, failed, and cancelled rows, while preserving interrupted tasks and all files. At capacity, the oldest finished row is evicted first; adding is refused if all 100 tasks still need attention.
 
 The last 20 outcomes are kept locally, with **Show in folder** and **Clear history**. Clearing history does not delete videos, chunks, or the last task's retry metadata.
 

@@ -39,7 +39,7 @@
     "message": "請在資料夾視窗中選擇…"
   },
   "download": {
-    "message": "下載目前影片"
+    "message": "加入下載佇列"
   },
   "idleTitle": {
     "message": "開啟 B 站影片頁後，即可下載。"
@@ -69,7 +69,7 @@
     "message": "首次使用請執行 install.cmd。本機需安裝 Python 與 FFmpeg。"
   },
   "helpStorage": {
-    "message": "記住你的儲存位置。下載時請保持 Chrome 開啟；取消或中斷後按重試，可重用已完成的分段。"
+    "message": "可連續加入影片，預設同時下載 2 支。請保持 Chrome 開啟；重開後按「繼續中斷的任務」。"
   },
   "helpPrivacy": {
     "message": "無追蹤分析、中繼伺服器或 Cookie 匯出。"
@@ -135,7 +135,7 @@
     "message": "已有下載正在進行。"
   },
   "errorBusyFolder": {
-    "message": "請等目前下載完成後再變更位置。"
+    "message": "請等下載與排隊任務結束後再變更位置。"
   },
   "errorChoosing": {
     "message": "請先完成資料夾選擇。"
@@ -190,5 +190,32 @@
   },
   "folderPickerTitle": {
     "message": "選擇影片儲存資料夾"
+  },
+  "concurrencyLabel": {
+    "message": "同時下載影片數"
+  },
+  "queueTitle": {
+    "message": "下載佇列"
+  },
+  "queueSummary": {
+    "message": "下載中 {running} 支 · 排隊 {waiting} 支"
+  },
+  "queued": {
+    "message": "排隊等待下載…"
+  },
+  "queueEmpty": {
+    "message": "開啟影片頁，加入第一支影片。"
+  },
+  "resumeQueue": {
+    "message": "繼續中斷的任務"
+  },
+  "clearFinished": {
+    "message": "清除已結束項目"
+  },
+  "errorDuplicate": {
+    "message": "這支影片已在下載或排隊中。"
+  },
+  "errorQueueFull": {
+    "message": "佇列已滿，請先清理已結束的項目。"
   }
 }

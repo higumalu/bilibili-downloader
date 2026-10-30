@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_appName__",
+  "version": "0.3.0",
+  "description": "__MSG_appDescription__",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "nativeMessaging"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "__MSG_appName__"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvjvrSM6KJhs+19S6pX1tRTDsSv3dsIpQo9jBTTkBRRLnNT36bBoexp8VhF+VVE5IIEXAHsKssqyNQw5MIxYBmsF3o8NRekcgaw0XrR8C2XWs1eNT1NZWmXVfia4G4onzdsXikyDnOi8YSGtb+8IihdtWCdpXZPU6EgiO2EhD8hOQpwdKpJKpJKMdU957VyBiRoN+d8jTlS6DSvlHo2AWpILkQFzsXK6Rv44cnzL72m6E7qEh4Tj17oIcSpwrL898HEHJ8RgdzXxC6bfQ8XOcYB7gqBRg0tGsaMzA6MBSZAO1bFqmLmP+a7cmByaTy7RoJH2xbGzqqakNN8siw3+AWQIDAQAB",
+  "default_locale": "en",
+  "minimum_chrome_version": "110"
+}

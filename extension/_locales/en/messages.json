@@ -1,0 +1,194 @@
+{
+  "appName": {
+    "message": "Bilibili Downloader"
+  },
+  "tagline": {
+    "message": "Keep your favorite videos close."
+  },
+  "appDescription": {
+    "message": "Download Bilibili videos with backup nodes, chunk retries, and local MP4 merging."
+  },
+  "languageLabel": {
+    "message": "Language"
+  },
+  "qualityLabel": {
+    "message": "Quality"
+  },
+  "bestQuality": {
+    "message": "Best available"
+  },
+  "quality1080": {
+    "message": "Up to 1080p"
+  },
+  "quality720": {
+    "message": "Up to 720p"
+  },
+  "quality480": {
+    "message": "Up to 480p"
+  },
+  "destinationLabel": {
+    "message": "Save to"
+  },
+  "reading": {
+    "message": "Reading…"
+  },
+  "chooseFolder": {
+    "message": "Choose folder…"
+  },
+  "choosingFolder": {
+    "message": "Choose a folder in the dialog…"
+  },
+  "download": {
+    "message": "Download this video"
+  },
+  "idleTitle": {
+    "message": "Open a Bilibili video to get started."
+  },
+  "checking": {
+    "message": "Checking the local helper…"
+  },
+  "connected": {
+    "message": "Helper connected. Ready to download."
+  },
+  "progressLabel": {
+    "message": "Download progress"
+  },
+  "cancel": {
+    "message": "Cancel"
+  },
+  "retry": {
+    "message": "Retry download"
+  },
+  "reveal": {
+    "message": "Show in folder"
+  },
+  "helpTitle": {
+    "message": "Setup & storage"
+  },
+  "helpSetup": {
+    "message": "Run install.cmd once before use. Python and FFmpeg are required."
+  },
+  "helpStorage": {
+    "message": "Your folder choice is remembered. Keep Chrome open while downloading. Retry cancelled or interrupted downloads to reuse finished chunks."
+  },
+  "helpPrivacy": {
+    "message": "No analytics, relay servers, or exported cookies."
+  },
+  "historyTitle": {
+    "message": "Recent downloads"
+  },
+  "clearHistory": {
+    "message": "Clear history"
+  },
+  "historyEmpty": {
+    "message": "No downloads yet."
+  },
+  "historyDone": {
+    "message": "Completed"
+  },
+  "historyInterrupted": {
+    "message": "Incomplete"
+  },
+  "preview": {
+    "message": "Windows preview"
+  },
+  "metrics": {
+    "message": "{speed} MB/s · About {eta} left"
+  },
+  "minutes": {
+    "message": "{count} min"
+  },
+  "hoursMinutes": {
+    "message": "{hours} hr {minutes} min"
+  },
+  "extracting": {
+    "message": "Fetching video streams and backup nodes…"
+  },
+  "downloading": {
+    "message": "Downloading {done} / {total} MB"
+  },
+  "merging": {
+    "message": "Download finished. Merging MP4…"
+  },
+  "done": {
+    "message": "Completed · {height}p · {size} MB"
+  },
+  "cancelled": {
+    "message": "Cancelled. Retry to reuse finished chunks."
+  },
+  "interrupted": {
+    "message": "Download interrupted. Select Retry download to continue; nothing starts automatically."
+  },
+  "errorConnection": {
+    "message": "Cannot reach the extension worker. Reload the extension."
+  },
+  "errorHelper": {
+    "message": "Cannot connect to the local helper. Run install.cmd, then reload the extension."
+  },
+  "errorUrl": {
+    "message": "Open a Bilibili BV video page first."
+  },
+  "errorPage": {
+    "message": "Invalid video part number."
+  },
+  "errorBusy": {
+    "message": "A download is already running."
+  },
+  "errorBusyFolder": {
+    "message": "Wait for the current download before changing folders."
+  },
+  "errorChoosing": {
+    "message": "Finish selecting the folder first."
+  },
+  "errorFolder": {
+    "message": "Choose an existing, writable folder."
+  },
+  "errorFolderPicker": {
+    "message": "Cannot open the folder dialog. Make sure Python includes Tcl/Tk."
+  },
+  "errorFileMissing": {
+    "message": "The file was moved or is outside your selected download folders."
+  },
+  "errorStreams": {
+    "message": "No usable streams found. Play the video first or change the quality."
+  },
+  "errorQuality": {
+    "message": "Invalid quality setting."
+  },
+  "errorFfmpeg": {
+    "message": "FFmpeg was not found. Install it, then run install.cmd again."
+  },
+  "errorNodes": {
+    "message": "Primary and backup nodes failed. Retry later to refresh stream URLs."
+  },
+  "errorMerge": {
+    "message": "MP4 merge failed. Check free disk space, then retry."
+  },
+  "errorPermission": {
+    "message": "Cannot write to this folder. Choose a writable destination."
+  },
+  "errorDisk": {
+    "message": "Not enough disk space. Free some space and retry."
+  },
+  "errorTls": {
+    "message": "Certificate verification failed. Check system certificates and proxy settings."
+  },
+  "errorRestricted": {
+    "message": "This video may require login, membership, or a supported region. Confirm it plays in your browser and retry."
+  },
+  "errorExtract": {
+    "message": "Could not extract video information. Check playback or run install.cmd to update the extractor."
+  },
+  "errorUnknown": {
+    "message": "Download failed. Retry later; report an issue if it persists."
+  },
+  "errorCommand": {
+    "message": "Unsupported action. Reload the extension."
+  },
+  "errorNoRetry": {
+    "message": "There is no download to retry."
+  },
+  "folderPickerTitle": {
+    "message": "Choose a video download folder"
+  }
+}

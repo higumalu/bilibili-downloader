@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="popup.css"><title>Bilibili Downloader</title></head>
+<body>
+<header><span class="logo" aria-hidden="true">B↓</span><div><h1 data-i18n="appName">Bilibili Downloader</h1><p data-i18n="tagline">Keep your favorite videos close.</p></div></header>
+<main>
+<div class="language-row"><label for="language" data-i18n="languageLabel">Language</label><select id="language"><option value="zh_TW">繁體中文</option><option value="en">English</option></select></div>
+<label for="quality" data-i18n="qualityLabel">Quality</label>
+<select id="quality"><option value="0" data-i18n="bestQuality">Best available</option><option value="1080" data-i18n="quality1080">Up to 1080p</option><option value="720" data-i18n="quality720">Up to 720p</option><option value="480" data-i18n="quality480">Up to 480p</option></select>
+<div class="destination"><label data-i18n="destinationLabel">Save to</label><p id="directory" class="path" data-i18n="reading">Reading…</p><button id="choose_directory" data-i18n="chooseFolder">Choose folder…</button><p id="directory-error" role="status"></p></div>
+<button id="download" class="primary" data-i18n="download">Download this video</button>
+<section aria-live="polite"><div id="title" data-i18n="idleTitle">Open a Bilibili video to get started.</div>
+<progress id="progress" max="100" value="0" aria-label="Download progress"></progress>
+<p id="status" data-i18n="checking">Checking the local helper…</p><p id="metrics"></p><p id="path" class="path"></p>
+<div class="actions"><button id="cancel" hidden data-i18n="cancel">Cancel</button><button id="retry" hidden data-i18n="retry">Retry download</button><button id="reveal" hidden data-i18n="reveal">Show in folder</button></div></section>
+<details><summary data-i18n="helpTitle">Setup & storage</summary><p data-i18n="helpSetup">Run install.cmd once before use. Python and FFmpeg are required.</p><p data-i18n="helpStorage">Your folder choice is remembered. Keep Chrome open while downloading. Finished chunks can be reused when retrying the same video.</p><p data-i18n="helpPrivacy">No analytics, relay servers, or exported browser cookies.</p></details>
+<details><summary data-i18n="historyTitle">Recent downloads</summary><ul id="history"></ul><button id="clear_history" data-i18n="clearHistory">Clear history</button></details>
+<footer>v0.3.0 · <span data-i18n="preview">Windows preview</span></footer>
+</main><script type="module" src="popup.js"></script></body></html>

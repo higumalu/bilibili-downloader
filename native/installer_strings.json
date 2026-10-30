@@ -1,0 +1,24 @@
+{
+  "en": {
+    "python": "Python 3.10+ with Tcl/Tk is required. Install from https://www.python.org/downloads/windows/ (enable Add Python to PATH and Tcl/Tk), then reopen the terminal.",
+    "ffmpeg": "FFmpeg was not found on PATH. Install from https://ffmpeg.org/download.html, add its bin folder to PATH, and reopen the terminal.",
+    "venv": "Could not create the isolated Python environment.",
+    "pip": "Could not install dependencies. Check your network, then rerun install.cmd.",
+    "ready": "Local helper installed for this Windows user. No administrator permissions required.",
+    "load": "Chrome: chrome://extensions -> Developer mode -> Load unpacked -> select:",
+    "check": "Prerequisites OK. Python and FFmpeg are available.",
+    "id": "Extension ID:",
+    "preparing": "Preparing local helper..."
+  },
+  "zh_TW": {
+    "python": "需要含 Tcl/Tk 的 Python 3.10 以上版本。請至 https://www.python.org/downloads/windows/ 安裝，勾選 Add Python to PATH 與 Tcl/Tk，之後重開終端。",
+    "ffmpeg": "PATH 中找不到 FFmpeg。請從 https://ffmpeg.org/download.html 安裝，將 bin 資料夾加入 PATH 後重開終端。",
+    "venv": "無法建立獨立 Python 環境。",
+    "pip": "依賴安裝失敗。請確認網路後重新執行 install.cmd。",
+    "ready": "已為目前 Windows 使用者安裝本機助手，不需要系統管理員權限。",
+    "load": "Chrome 開啟 chrome://extensions -> 開發人員模式 -> 載入未封裝項目 -> 選擇：",
+    "check": "環境檢查通過：Python 與 FFmpeg 皆可使用。",
+    "id": "擴充功能 ID：",
+    "preparing": "正在準備本機助手…"
+  }
+}

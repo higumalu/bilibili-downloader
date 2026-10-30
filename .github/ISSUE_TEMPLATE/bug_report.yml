@@ -1,0 +1,26 @@
+name: Bug report / 問題回報
+description: Report a reproducible problem / 回報可重現的問題
+body:
+  - type: markdown
+    attributes:
+      value: "Please redact cookies, signed CDN URLs, and personal paths. / 請遮蔽 Cookie、簽章網址與個人路徑。"
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 環境
+      description: Windows, Chrome, Python, FFmpeg, extension version
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and expected behavior / 步驟與預期結果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / 實際結果
+      description: Include the error text and a public BV page URL if safe; never include signed stream URLs.
+    validations:
+      required: true

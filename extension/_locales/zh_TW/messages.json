@@ -1,0 +1,194 @@
+{
+  "appName": {
+    "message": "B站下載助手"
+  },
+  "tagline": {
+    "message": "把喜歡的影片，留在電腦裡。"
+  },
+  "appDescription": {
+    "message": "下載目前的 B 站影片：備用節點、分段重試，並由本機工具合併成 MP4。"
+  },
+  "languageLabel": {
+    "message": "介面語言"
+  },
+  "qualityLabel": {
+    "message": "下載畫質"
+  },
+  "bestQuality": {
+    "message": "最高可用畫質"
+  },
+  "quality1080": {
+    "message": "最高 1080p"
+  },
+  "quality720": {
+    "message": "最高 720p"
+  },
+  "quality480": {
+    "message": "最高 480p"
+  },
+  "destinationLabel": {
+    "message": "儲存位置"
+  },
+  "reading": {
+    "message": "正在讀取…"
+  },
+  "chooseFolder": {
+    "message": "選擇儲存資料夾…"
+  },
+  "choosingFolder": {
+    "message": "請在資料夾視窗中選擇…"
+  },
+  "download": {
+    "message": "下載目前影片"
+  },
+  "idleTitle": {
+    "message": "開啟 B 站影片頁後，即可下載。"
+  },
+  "checking": {
+    "message": "正在檢查本機下載工具…"
+  },
+  "connected": {
+    "message": "工具已連線，可下載目前的影片。"
+  },
+  "progressLabel": {
+    "message": "下載進度"
+  },
+  "cancel": {
+    "message": "取消下載"
+  },
+  "retry": {
+    "message": "重試下載"
+  },
+  "reveal": {
+    "message": "開啟所在資料夾"
+  },
+  "helpTitle": {
+    "message": "安裝與儲存位置"
+  },
+  "helpSetup": {
+    "message": "首次使用請執行 install.cmd。本機需安裝 Python 與 FFmpeg。"
+  },
+  "helpStorage": {
+    "message": "記住你的儲存位置。下載時請保持 Chrome 開啟；取消或中斷後按重試，可重用已完成的分段。"
+  },
+  "helpPrivacy": {
+    "message": "無追蹤分析、中繼伺服器或 Cookie 匯出。"
+  },
+  "historyTitle": {
+    "message": "最近下載"
+  },
+  "clearHistory": {
+    "message": "清除紀錄"
+  },
+  "historyEmpty": {
+    "message": "尚無下載紀錄。"
+  },
+  "historyDone": {
+    "message": "已完成"
+  },
+  "historyInterrupted": {
+    "message": "未完成"
+  },
+  "preview": {
+    "message": "Windows 預覽版"
+  },
+  "metrics": {
+    "message": "{speed} MB/s · 預計剩餘 {eta}"
+  },
+  "minutes": {
+    "message": "{count} 分鐘"
+  },
+  "hoursMinutes": {
+    "message": "{hours} 小時 {minutes} 分鐘"
+  },
+  "extracting": {
+    "message": "正在取得影片與備用節點…"
+  },
+  "downloading": {
+    "message": "正在下載 {done} / {total} MB"
+  },
+  "merging": {
+    "message": "下載完成，正在合併成 MP4…"
+  },
+  "done": {
+    "message": "下載完成 · {height}p · {size} MB"
+  },
+  "cancelled": {
+    "message": "已取消。重試可重用已完成的分段。"
+  },
+  "interrupted": {
+    "message": "下載已中斷。按「重試下載」繼續，不會自動開始。"
+  },
+  "errorConnection": {
+    "message": "無法連線到背景程式。請重新載入插件。"
+  },
+  "errorHelper": {
+    "message": "無法連線到本機助手。請執行 install.cmd，再重新載入插件。"
+  },
+  "errorUrl": {
+    "message": "請先開啟 B 站的 BV 影片頁。"
+  },
+  "errorPage": {
+    "message": "分 P 編號無效。"
+  },
+  "errorBusy": {
+    "message": "已有下載正在進行。"
+  },
+  "errorBusyFolder": {
+    "message": "請等目前下載完成後再變更位置。"
+  },
+  "errorChoosing": {
+    "message": "請先完成資料夾選擇。"
+  },
+  "errorFolder": {
+    "message": "請選擇存在且可寫入的資料夾。"
+  },
+  "errorFolderPicker": {
+    "message": "無法開啟資料夾選擇視窗，請確認 Python 包含 Tcl/Tk。"
+  },
+  "errorFileMissing": {
+    "message": "檔案已移動或不在已設定的下載資料夾內。"
+  },
+  "errorStreams": {
+    "message": "找不到可用串流。請先播放影片或調整畫質。"
+  },
+  "errorQuality": {
+    "message": "畫質設定無效。"
+  },
+  "errorFfmpeg": {
+    "message": "找不到 FFmpeg。請安裝後重新執行 install.cmd。"
+  },
+  "errorNodes": {
+    "message": "主節點與備用節點皆失敗。請稍後重試以更新影片連線。"
+  },
+  "errorMerge": {
+    "message": "影音合併失敗。請確認磁碟空間充足，再重試。"
+  },
+  "errorPermission": {
+    "message": "無法寫入儲存位置。請選擇有寫入權限的資料夾。"
+  },
+  "errorDisk": {
+    "message": "磁碟空間不足。清出空間後再重試。"
+  },
+  "errorTls": {
+    "message": "連線憑證驗證失敗。請檢查系統憑證與代理設定。"
+  },
+  "errorRestricted": {
+    "message": "影片可能受登入、會員或地區限制。請確認能正常播放後重試。"
+  },
+  "errorExtract": {
+    "message": "無法取得影片資訊。請確認影片可播放，或重新執行 install.cmd 更新解析工具。"
+  },
+  "errorUnknown": {
+    "message": "下載失敗。請稍後重試；若持續發生，請回報問題。"
+  },
+  "errorCommand": {
+    "message": "不支援的操作。請重新載入插件。"
+  },
+  "errorNoRetry": {
+    "message": "尚無可重試的下載。"
+  },
+  "folderPickerTitle": {
+    "message": "選擇影片儲存資料夾"
+  }
+}

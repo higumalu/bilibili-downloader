@@ -9,6 +9,6 @@ Issues and pull requests in English or Chinese are welcome. / 歡迎中文或英
 5. Use `python scripts/build_release.py` for release ZIPs. Review the archive and checksums before publishing.
 6. Follow docs/TESTING.md for real Chrome checks. Mock-based tests do not establish a real browser acceptance pass.
 
-The repository uses pinned runtime requirements and GitHub CI. To update yt-dlp, update the pin, run tests, and verify extraction against a public BV video without checking in its signed URLs.
+The repository uses pinned runtime requirements and local tests; GitHub CI is not required. To update yt-dlp, update the pin, run tests locally, and verify extraction against a public BV video without checking in its signed URLs.
 
 By contributing, you agree that your original contributions are distributed under the project's MIT license. Third-party dependencies retain their own licenses.

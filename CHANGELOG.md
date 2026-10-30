@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Remove GitHub CI; use local tests and the existing release script.
+
 ## 0.3.0 — Windows preview
 
 - Add remembered Traditional Chinese / English language switching, including status and error guidance.
